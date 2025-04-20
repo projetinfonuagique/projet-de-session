@@ -120,6 +120,7 @@ minikube service prometheus-grafana -n projet-infonuagique
 
 # Utilisateur par défaut:admin. Mot de passe : prom-operator
 ```
+# Importer les Dashboard manuellement depuis le repertoir /dashboard-grafana
 
 ### Locust
 ```bash
