@@ -13,6 +13,18 @@ Ce projet regroupe un frontend mixte Vite.js + React servi par NGINX, un backend
 - `kubectl` installé et configuré (command-line de K8s)
 - Images Docker buildées et poussées dans un registre (Docker Hub, GHCR, etc.) ou accessible en local
 
+## Comptes : 
+- Compte DockerHub : 
+username : projetinfonuagique
+mot de passe : dockerhub
+
+- Compte Github : 
+username : projetinfonuagique
+mot de passe : moncomptegithub
+
+- Compte Gmail (en cas de souci) 
+mail : projetinfonuagiqueuqac@gmail.com
+Password : dockerhub
 ### Construire et pousser les images
 
 ```bash
