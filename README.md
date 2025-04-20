@@ -17,16 +17,16 @@ Ce projet regroupe un frontend mixte Vite.js + React servi par NGINX, un backend
 
 ```bash
 # Backend FastAPI
-docker build -t dockermariexmas/projet-infonuagique-backend:latest ./backend
-docker push dockermariexmas/projet-infonuagique-backend:latest
+docker build -t projetinfonuagique/projet-infonuagique-backend:latest ./backend
+docker push projetinfonuagique/projet-infonuagique-backend:latest
 
 # Frontend NGINX avec Vue + React
-docker build -t dockermariexmas/projet-infonuagique-frontend:latest ./frontend
-docker push dockermariexmas/projet-infonuagique-frontend:latest
+docker build -t projetinfonuagique/projet-infonuagique-frontend:latest ./frontend
+docker push projetinfonuagique/projet-infonuagique-frontend:latest
 
 # Locust
-docker build -t dockermariexmas/projet-infonuagique-locust:latest ./test
-docker push dockermariexmas/projet-infonuagique-locust:latest
+docker build -t projetinfonuagique/projet-infonuagique-locust:latest ./test
+docker push projetinfonuagique/projet-infonuagique-locust:latest
 ```
 
 ##  Déploiement Docker Swarm
