@@ -22,11 +22,12 @@ Ce projet regroupe un frontend mixte Vite.js + React servi par NGINX, un backend
 (username) : projetinfonuagique
 (mot de passe) : moncomptegithub
 
+
+- Grafana : (username) : admin , (motdepasse) : prom-operator
+
 - Compte Gmail (en cas de souci) 
 (mail) : projetinfonuagiqueuqac@gmail.com
 (Password) : dockerhub
-
-- Grafana : (username) : admin , (motdepasse) : prom-operator
 ### Construire et pousser les images
 
 ```bash
