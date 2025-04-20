@@ -118,8 +118,7 @@ minikube service prometheus-grafana -n projet-infonuagique
 ```bash
 #kubectl expose service prometheus-grafana --type=NodePort --target-port=3000 --name=prometheus-grafana-ext -n projet-infonuagique
 
-#Récupérer le mot de passe. Utilisateur par défaut:admin.
-kubectl get secret prometheus-grafana --namespace projet-infonuagique -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+# Utilisateur par défaut:admin. Mot de passe : prom-operator
 ```
 
 ### Locust
