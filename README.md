@@ -49,10 +49,12 @@ docker push projetinfonuagique/projet-infonuagique-locust:latest
 ### 1. Démarrer Docker Swarm
 ```bash
 docker swarm init
+
+
 ```
 
 ### 2. Déployer la stack
-Se placer dans le dossier` swarm/`
+Se placer dans le dossier` deploy/swarm/`
 
 ```bash
 docker stack deploy -c docker-compose.swarm.yml mon_projet_stack
