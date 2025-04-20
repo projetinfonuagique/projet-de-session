@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          volumeMounts:
+            - name: postgre-storage
+              mountPath: /var/lib/postgresql/data
+            - name: init-sql-volume
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: postgre-storage
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+        - name: init-sql-volume
+          configMap:
+            name: postgres-init-sql

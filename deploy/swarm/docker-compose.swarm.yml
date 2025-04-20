@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  backend:
+    image: dockermariexmas/projet-infonuagique-backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/mydb
+    networks:
+      - app_network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+
+  frontend:
+    image: dockermariexmas/projet-infonuagique-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    configs:
+      - source: init_sql_config
+        target: /docker-entrypoint-initdb.d/init.sql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    ports:
+      - "5432:5432"
+    deploy:
+      placement:
+        constraints: 
+        - node.role == manager 
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - type: bind
+        source: ../../backend/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - app_network 
+    
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  locust:
+    image: dockermariexmas/projet-infonuagique-locust
+    ports:
+      - "8089:8089"
+    networks:
+      - app_network
+    depends_on:
+      - backend
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    
+networks:
+  app_network:
+    
+volumes:
+  grafana-storage:
+  postgres_data:
+
+configs:
+  init_sql_config:
+    file: ../../backend/init.sql
+    name: init_sql_config
+  

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: locust-deployment
+spec:
+  selector:
+    matchLabels:
+      app: locust
+  template:
+    metadata:
+      labels:
+        app: locust
+    spec:
+      containers:
+      - name: locust
+        image: dockermariexmas/projet-infonuagique-locust
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8089
+        command: ["locust", "-f", "/mnt/locust/locustfile.py", "--host=http://backend:8000"]
+        volumeMounts:
+        - name: locust-volume
+          mountPath:  /mnt/locust
+      volumes:
+      - name: locust-volume
+        configMap:
+          name: locust-config
